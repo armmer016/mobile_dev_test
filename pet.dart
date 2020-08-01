@@ -6,18 +6,18 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class Test {
-
+  // call this function when you want to get data of pet that has been sold
   Future getData() async {
     http
         .get('https://petstore.swagger.io/v2/pet/findByStatus?status=sold')
         .then((res) {
-          final pet = petFromJson(res.body.toString());
-          })
-        .catchError((onError)=>print(onError));
+      //to parse json response to List<Pet>
+      final pet = petFromJson(res.body.toString());
+    }).catchError((onError) => print(onError));
   }
-  
 }
 
+//below code i generate from quicktype.io
 List<Pet> petFromJson(String str) =>
     List<Pet>.from(json.decode(str).map((x) => Pet.fromJson(x)));
 
